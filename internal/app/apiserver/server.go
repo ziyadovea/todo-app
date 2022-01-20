@@ -13,7 +13,7 @@ type Server struct {
 func NewServer(port string, handler http.Handler) *Server {
 	return &Server{
 		httpServer: &http.Server{
-			Addr:           port,
+			Addr:           ":" + port,
 			Handler:        handler,
 			ReadTimeout:    10 * time.Second,
 			WriteTimeout:   10 * time.Second,

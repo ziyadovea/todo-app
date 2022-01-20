@@ -3,15 +3,12 @@ package service
 import "github.com/ziyadovea/todo-app/internal/pkg/repository"
 
 type Authorization interface {
-
 }
 
 type TodoList interface {
-
 }
 
 type TodoItem interface {
-
 }
 
 type Service struct {
