@@ -1,12 +1,18 @@
 package repository
 
 import (
+	"errors"
 	"github.com/jmoiron/sqlx"
 	"github.com/ziyadovea/todo-app/models"
 )
 
+var (
+	ErrorIncorrectUsernameOrPassword = errors.New("incorrect username or password")
+)
+
 type Authorization interface {
 	CreateUser(*models.User) (int, error)
+	GetUser(username, password string) (*models.User, error)
 }
 
 type TodoList interface {
