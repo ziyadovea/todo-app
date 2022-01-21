@@ -1,8 +1,12 @@
 package service
 
-import "github.com/ziyadovea/todo-app/internal/pkg/repository"
+import (
+	"github.com/ziyadovea/todo-app/internal/pkg/repository"
+	"github.com/ziyadovea/todo-app/models"
+)
 
 type Authorization interface {
+	CreateUser(*models.User) (int, error)
 }
 
 type TodoList interface {
@@ -19,7 +23,7 @@ type Service struct {
 
 func NewService(repo *repository.Repository) *Service {
 	return &Service{
-		Authorization: nil,
+		Authorization: NewAuthService(repo.Authorization),
 		TodoList:      nil,
 		TodoItem:      nil,
 	}
