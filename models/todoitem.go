@@ -7,3 +7,9 @@ type TodoItem struct {
 	Description string `json:"description" db:"description"`
 	Done        bool   `json:"done" db:"done"`
 }
+
+type NewTodoItem struct {
+	Title       *string `json:"title"`
+	Description *string `json:"description"`
+	Done        *bool   `json:"done"`
+}

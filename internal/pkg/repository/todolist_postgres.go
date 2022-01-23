@@ -48,7 +48,7 @@ func (l *TodoListPostgres) GetAllLists(userID int) ([]*models.TodoList, error) {
 }
 
 func (l *TodoListPostgres) DeleteAllLists(userID int) (int, error) {
-	res, err := l.db.Exec("delete from todo_lists")
+	res, err := l.db.Exec("delete from todo_lists where user_id=$1", userID)
 	if err != nil {
 		return 0, err
 	}
@@ -85,16 +85,19 @@ func (l *TodoListPostgres) UpdateListByID(userID int, listID int, newList *model
 	queryStr := &strings.Builder{}
 	queryStr.WriteString("update todo_lists set ")
 	args := make([]interface{}, 0)
+	setValues := make([]string, 0)
 
 	if newList.Title != nil {
 		args = append(args, *newList.Title)
-		queryStr.WriteString("title=$" + strconv.Itoa(len(args)) + " ")
+		setValues = append(setValues, "title=$"+strconv.Itoa(len(args)))
 	}
 
 	if newList.Description != nil {
 		args = append(args, *newList.Description)
-		queryStr.WriteString(", description=$" + strconv.Itoa(len(args)) + " ")
+		setValues = append(setValues, "description=$"+strconv.Itoa(len(args)))
 	}
+
+	queryStr.WriteString(strings.Join(setValues, ", "))
 
 	args = append(args, listID)
 	queryStr.WriteString("where id=$" + strconv.Itoa(len(args)) + " and ")

@@ -35,7 +35,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 			lists.PUT("/:list_id", h.updateListByID)
 			lists.DELETE("/:list_id", h.deleteListByID)
 
-			items := api.Group(":id/items")
+			items := lists.Group(":list_id/items")
 			{
 				items.GET("/", h.getAllItems)
 				items.POST("/", h.createNewItem)

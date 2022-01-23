@@ -27,7 +27,7 @@ func (h *Handler) createNewList(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusCreated, map[string]interface{}{
-		"listID": listID,
+		"list_id": listID,
 	})
 }
 
@@ -61,7 +61,7 @@ func (h *Handler) deleteAllLists(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, map[string]interface{}{
-		"rows deleted": rowsAffected,
+		"rows_deleted": rowsAffected,
 	})
 }
 
@@ -109,7 +109,7 @@ func (h *Handler) deleteListByID(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, map[string]interface{}{
-		"rows deleted": rowsAffected,
+		"rows_deleted": rowsAffected,
 	})
 }
 
