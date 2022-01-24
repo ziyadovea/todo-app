@@ -130,7 +130,7 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/windows,goland,go
 
 ### Add ###
-.env
+# Вообще говоря, еще .env над
 .database
 .DS_Store
 
