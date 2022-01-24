@@ -3,7 +3,7 @@ package service
 import (
 	"errors"
 	"github.com/golang-jwt/jwt"
-	"github.com/ziyadovea/todo-app/internal/pkg/repository"
+	"github.com/ziyadovea/todo-app/internal/app/repository"
 	"github.com/ziyadovea/todo-app/models"
 	"golang.org/x/crypto/bcrypt"
 	"os"

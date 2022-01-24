@@ -6,9 +6,9 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"github.com/ziyadovea/todo-app/internal/app/apiserver"
-	"github.com/ziyadovea/todo-app/internal/pkg/handler"
-	"github.com/ziyadovea/todo-app/internal/pkg/repository"
-	"github.com/ziyadovea/todo-app/internal/pkg/service"
+	"github.com/ziyadovea/todo-app/internal/app/apiserver/handler"
+	repository2 "github.com/ziyadovea/todo-app/internal/app/repository"
+	"github.com/ziyadovea/todo-app/internal/app/service"
 	"os"
 	"os/signal"
 	"syscall"
@@ -26,7 +26,7 @@ func main() {
 		logrus.Fatalf("error occured while reading .env file: %s", err.Error())
 	}
 
-	db, err := repository.NewPostgresDB(&repository.Config{
+	db, err := repository2.NewPostgresDB(&repository2.Config{
 		Host:     viper.GetString("db.host"),
 		Port:     viper.GetString("db.port"),
 		User:     viper.GetString("db.user"),
@@ -38,7 +38,7 @@ func main() {
 		logrus.Fatalf("error occured while connecting to the postgres database: %s", err.Error())
 	}
 
-	repo := repository.NewRepository(db)
+	repo := repository2.NewRepository(db)
 	services := service.NewService(repo)
 	h := handler.NewHandler(services)
 

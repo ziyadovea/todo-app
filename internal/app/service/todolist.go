@@ -2,7 +2,7 @@ package service
 
 import (
 	"errors"
-	"github.com/ziyadovea/todo-app/internal/pkg/repository"
+	"github.com/ziyadovea/todo-app/internal/app/repository"
 	"github.com/ziyadovea/todo-app/models"
 )
 

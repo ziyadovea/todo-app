@@ -6,8 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
-	"github.com/ziyadovea/todo-app/internal/pkg/service"
-	mock_service "github.com/ziyadovea/todo-app/internal/pkg/service/mocks"
+	"github.com/ziyadovea/todo-app/internal/app/service"
+	"github.com/ziyadovea/todo-app/internal/app/service/mocks"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -25,11 +25,11 @@ func TestHandler_UserIdentity(t *testing.T) {
 		expectedResponseBody string
 	}{
 		{
-			name:                 "Valid",
-			headerName:           "Authorization",
-			headerValue:          "Bearer token",
-			token:                "token",
-			mockBehaviour:        func(s *mock_service.MockAuthorization, token string) {
+			name:        "Valid",
+			headerName:  "Authorization",
+			headerValue: "Bearer token",
+			token:       "token",
+			mockBehaviour: func(s *mock_service.MockAuthorization, token string) {
 				s.EXPECT().ParseToken(token).Return(1, nil)
 			},
 			expectedStatusCode:   http.StatusOK,
@@ -72,11 +72,11 @@ func TestHandler_UserIdentity(t *testing.T) {
 			expectedResponseBody: fmt.Sprintf(`{"error_message": "%s"}`, errInvalidAuthHeader.Error()),
 		},
 		{
-			name:                 "Error parsing token",
-			headerName:           "Authorization",
-			headerValue:          "Bearer token",
-			token:                "token",
-			mockBehaviour:        func(s *mock_service.MockAuthorization, token string) {
+			name:        "Error parsing token",
+			headerName:  "Authorization",
+			headerValue: "Bearer token",
+			token:       "token",
+			mockBehaviour: func(s *mock_service.MockAuthorization, token string) {
 				s.EXPECT().ParseToken(token).Return(0, errors.New("error parsing token"))
 			},
 			expectedStatusCode:   http.StatusInternalServerError,
@@ -126,10 +126,10 @@ func TestGetUserId(t *testing.T) {
 	}
 
 	testCases := []struct {
-		name string
-		ctx *gin.Context
+		name    string
+		ctx     *gin.Context
 		isError bool
-		id int
+		id      int
 	}{
 		{
 			name:    "Valid",
@@ -162,4 +162,3 @@ func TestGetUserId(t *testing.T) {
 		})
 	}
 }
-

@@ -7,8 +7,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
-	"github.com/ziyadovea/todo-app/internal/pkg/service"
-	mock_service "github.com/ziyadovea/todo-app/internal/pkg/service/mocks"
+	"github.com/ziyadovea/todo-app/internal/app/service"
+	"github.com/ziyadovea/todo-app/internal/app/service/mocks"
 	"github.com/ziyadovea/todo-app/models"
 	"net/http"
 	"net/http/httptest"
@@ -91,45 +91,45 @@ func TestHandler_signUp(t *testing.T) {
 func TestHandler_SignIn(t *testing.T) {
 
 	testCases := []struct {
-		name                string
-		inputBody           string
-		input               *signInInput
-		mockBehaviour       func(s *mock_service.MockAuthorization, input *signInInput)
-		expectedStatusCode  int
+		name                 string
+		inputBody            string
+		input                *signInInput
+		mockBehaviour        func(s *mock_service.MockAuthorization, input *signInInput)
+		expectedStatusCode   int
 		expectedResponseBody string
 	}{
 		{
-			name:                "Valid",
-			inputBody:           `{"username": "user", "password": "user"}`,
-			input:               &signInInput{
+			name:      "Valid",
+			inputBody: `{"username": "user", "password": "user"}`,
+			input: &signInInput{
 				Username: "user",
 				Password: "user",
 			},
-			mockBehaviour:       func(s *mock_service.MockAuthorization, input *signInInput) {
+			mockBehaviour: func(s *mock_service.MockAuthorization, input *signInInput) {
 				s.EXPECT().GenerateToken(input.Username, input.Username).Return("token", nil)
 			},
-			expectedStatusCode:  http.StatusFound,
+			expectedStatusCode:   http.StatusFound,
 			expectedResponseBody: `{"token": "token"}`,
 		},
 		{
-			name:                "Bad request",
-			inputBody:           `{"invalid": "yes"}`,
-			input:               &signInInput{},
-			mockBehaviour:       func(s *mock_service.MockAuthorization, input *signInInput) {},
-			expectedStatusCode:  http.StatusBadRequest,
+			name:                 "Bad request",
+			inputBody:            `{"invalid": "yes"}`,
+			input:                &signInInput{},
+			mockBehaviour:        func(s *mock_service.MockAuthorization, input *signInInput) {},
+			expectedStatusCode:   http.StatusBadRequest,
 			expectedResponseBody: fmt.Sprintf(`{"error_message": "%s"}`, errInvalidInputBody.Error()),
 		},
 		{
-			name:                "Error generate token",
-			inputBody:           `{"username": "user", "password": "user"}`,
-			input:               &signInInput{
+			name:      "Error generate token",
+			inputBody: `{"username": "user", "password": "user"}`,
+			input: &signInInput{
 				Username: "user",
 				Password: "user",
 			},
-			mockBehaviour:       func(s *mock_service.MockAuthorization, input *signInInput) {
+			mockBehaviour: func(s *mock_service.MockAuthorization, input *signInInput) {
 				s.EXPECT().GenerateToken(input.Username, input.Username).Return("", errors.New("error generate token"))
 			},
-			expectedStatusCode:  http.StatusUnauthorized,
+			expectedStatusCode:   http.StatusUnauthorized,
 			expectedResponseBody: fmt.Sprintf(`{"error_message": "%s"}`, "error generate token"),
 		},
 	}
