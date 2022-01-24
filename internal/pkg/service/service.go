@@ -5,6 +5,8 @@ import (
 	"github.com/ziyadovea/todo-app/models"
 )
 
+//go:generate mockgen -source=service.go -destination=mocks/mock.go
+
 type Authorization interface {
 	CreateUser(*models.User) (int, error)
 	GenerateToken(string, string) (string, error)

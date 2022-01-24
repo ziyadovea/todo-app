@@ -9,7 +9,7 @@ import (
 func (h *Handler) signUp(c *gin.Context) {
 	user := &models.User{}
 	if err := c.BindJSON(user); err != nil {
-		newErrorResponse(c, http.StatusBadRequest, err.Error())
+		newErrorResponse(c, http.StatusBadRequest, errInvalidInputBody.Error())
 		return
 	}
 
@@ -32,7 +32,7 @@ type signInInput struct {
 func (h *Handler) signIn(c *gin.Context) {
 	input := &signInInput{}
 	if err := c.BindJSON(input); err != nil {
-		newErrorResponse(c, http.StatusBadRequest, err.Error())
+		newErrorResponse(c, http.StatusBadRequest, errInvalidInputBody.Error())
 		return
 	}
 

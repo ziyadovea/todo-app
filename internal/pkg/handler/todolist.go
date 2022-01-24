@@ -8,7 +8,7 @@ import (
 )
 
 func (h *Handler) createNewList(c *gin.Context) {
-	userID, err := h.getUserID(c)
+	userID, err := getUserID(c)
 	if err != nil {
 		newErrorResponse(c, http.StatusBadRequest, err.Error())
 		return
@@ -32,7 +32,7 @@ func (h *Handler) createNewList(c *gin.Context) {
 }
 
 func (h *Handler) getAllLists(c *gin.Context) {
-	userID, err := h.getUserID(c)
+	userID, err := getUserID(c)
 	if err != nil {
 		newErrorResponse(c, http.StatusBadRequest, err.Error())
 		return
@@ -48,7 +48,7 @@ func (h *Handler) getAllLists(c *gin.Context) {
 }
 
 func (h *Handler) deleteAllLists(c *gin.Context) {
-	userID, err := h.getUserID(c)
+	userID, err := getUserID(c)
 	if err != nil {
 		newErrorResponse(c, http.StatusBadRequest, err.Error())
 		return
@@ -66,7 +66,7 @@ func (h *Handler) deleteAllLists(c *gin.Context) {
 }
 
 func (h *Handler) getListByID(c *gin.Context) {
-	userID, err := h.getUserID(c)
+	userID, err := getUserID(c)
 	if err != nil {
 		newErrorResponse(c, http.StatusBadRequest, err.Error())
 		return
@@ -89,7 +89,7 @@ func (h *Handler) getListByID(c *gin.Context) {
 }
 
 func (h *Handler) deleteListByID(c *gin.Context) {
-	userID, err := h.getUserID(c)
+	userID, err := getUserID(c)
 	if err != nil {
 		newErrorResponse(c, http.StatusBadRequest, err.Error())
 		return
@@ -114,7 +114,7 @@ func (h *Handler) deleteListByID(c *gin.Context) {
 }
 
 func (h *Handler) updateListByID(c *gin.Context) {
-	userID, err := h.getUserID(c)
+	userID, err := getUserID(c)
 	if err != nil {
 		newErrorResponse(c, http.StatusBadRequest, err.Error())
 		return
